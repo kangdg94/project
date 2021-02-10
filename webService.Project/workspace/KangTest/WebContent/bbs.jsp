@@ -4,13 +4,14 @@
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
 
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv= "Content- Type" content="text/html; charset=UTF-8">
-<meta name ="viewport" content="width = device-width" initial-scale="1">
+<meta name ="viewport" content="width = device-width initial-scale = 1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 <title>Donggeun's webService</title>
@@ -18,20 +19,28 @@
 	a, a:hover{
 	color: #000000;
 	text-decoration: none;
-	
 	}
 </style>
 </head>
 <body>
-
 	<%
+		request.setCharacterEncoding("UTF-8");
+		String search ="";
+		String searchType="전체";
 		String userID = null;
+		int pageNumber = 1;
 		if (session.getAttribute("userID") != null) {
 			userID = (String) session.getAttribute("userID");
 		}
-		int pageNumber = 1;
+		
 		if (request.getParameter("pageNumber") != null){
 			pageNumber = Integer.parseInt(request.getParameter("pageNumber"));
+		}
+		if (request.getParameter("searchType") != null){
+			searchType = request.getParameter("searchType");
+		}
+		if (request.getParameter("search") != null){
+			search = request.getParameter("search");
 		}
 	%>
 	<nav class ="navbar navbar-default">
@@ -84,26 +93,51 @@
 			%>
 		</div>
 	</nav>
+	
+	<section class="container" style="float:right">
+		<form method="get" action="./bbs.jsp" class="form-inline mt-3">
+			<select name="searchType" class="form-control mx-1 mt-2">
+			<option value ="전체">전체</option>
+			<option value ="내용만" <% if(searchType.equals("내용만")) out.println("selected"); %>>내용만</option>
+			</select>
+			<input type="text" name="search" class="form-control mx-1 mt-2" placeholder="search text"></input>
+			<button type="submit" class="form-control mx-1 mt-2">검색</button>
+		</form>
+	</section> 
+	
+		
+			
 	<div class="container">
 		<div class="row">
 			<table class="table table-striped" style="text-align: center; border: 1px solid #dddddd">
-				<thread>
+				
 					<tr>
 						<th style="background-color: #bbbbbb; text-align: center;">번호</th>
 						<th style="background-color: #bbbbbb; text-align: center;">제목</th>
 						<th style="background-color: #bbbbbb; text-align: center;">작성자</th>
 						<th style="background-color: #bbbbbb; text-align: center;">작성일</th>
 					</tr>
-				</thread>
+				
 		<tbody>
 		<%
 			BbsDAO bbsDAO = new BbsDAO();
-			ArrayList<Bbs> list = bbsDAO.getList(pageNumber);
-			for(int i =0 ;i <list.size(); i++){
+			ArrayList<Bbs> list = null;
+			
+			if(search == null || search.isEmpty())
+			{
+				list = bbsDAO.getList(pageNumber);
+			}
+			else
+			{
+				list = bbsDAO.getList(pageNumber, searchType, search);
+			}
+			
+			for(int i =0 ;i <list.size(); i++)
+			{
 		%>
 			<tr>
 				<td><%= list.get(i).getBbsID() %></td>
-				<td><a href ="view.jsp?bbsID=<%= list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td></a></td>
+				<td><a href = "view.jsp?bbsID=<%=list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td></a></td>
 				<td><%= list.get(i).getUserID() %></td>
 				<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
 			</tr>

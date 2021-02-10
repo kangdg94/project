@@ -59,6 +59,7 @@
 						aria-expanded="false">회원관리<span class="cartet"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="logoutAction.jsp">로그아웃</a></li>
+					<li><a href="mypage.jsp">마이페이지</a></li>
 			</ul>
 			</li>
 			</ul>
@@ -70,7 +71,7 @@
 	<div class="container">
 		<div class="jumbotron">
 			    <img src="images/1.jpg" >
-				<a class="btn btn.primary btn-pull" href="donggeun.jsp" role="button">About Donggeun</a>
+				<a class="btn btn.primary btn-pull" href="donggeun.jsp" role="button">자유 게시판 글쓰기</a>
 			
 		</div>
 	</div>

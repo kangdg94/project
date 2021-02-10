@@ -1,0 +1,11 @@
+127.0.0.1 - - [22/Jan/2021:14:33:47 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:48 +0900] "GET /KangTest/ HTTP/1.1" 200 215
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:48 +0900] "GET /KangTest/main.jsp HTTP/1.1" 200 2085
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:48 +0900] "GET /KangTest/css/bootstrap.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:48 +0900] "GET /KangTest/images/1.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:48 +0900] "GET /KangTest/js/bootstrap.js HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:56 +0900] "GET /KangTest/main.jsp HTTP/1.1" 200 2085
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:56 +0900] "GET /KangTest/css/bootstrap.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:56 +0900] "GET /KangTest/css/custom.css HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:56 +0900] "GET /KangTest/images/1.jpg HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [22/Jan/2021:14:33:57 +0900] "GET /KangTest/js/bootstrap.js HTTP/1.1" 304 -

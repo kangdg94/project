@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv= "Content- Type" content="text/html; charset=UTF-8">
-<meta name ="viewport" content="width = device-width" initial-scale="1">
+<meta name ="viewport" content="width = device-width initial-scale = 1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/custom.css">
 <title>Donggeun's webService</title>
@@ -91,11 +91,6 @@
 		</form>
 	</div>
 </div>
-	
-<!--  	<form action="uploadAction.jsp" method="post" enctype="multipart/form-data">
-		<input type="file" name="file">
-		<input type="submit" value="업로드">
-	</form> -->
 	
 	
 	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>

@@ -3,12 +3,15 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="user.UserDAO" %>
+
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv= "Content- Type" content="text/html; charset=UTF-8">
-<meta name ="viewport" content="width = device-width" initial-scale="1">
+<meta name ="viewport" content="width = device-width initial-scale=1">
 <link rel="stylesheet" href="css/bootstrap.css">
 <title>Donggeun's webService</title>
 </head>
@@ -26,7 +29,8 @@
 			script.println("location.href = 'login.jsp'");
 			script.println("</script>");
 		}
-	
+		Boolean adminCheck = new UserDAO().getAdmin(userID);
+		
 		int bbsID = 0;
 		if (request.getParameter("bbsID") != null){
 			bbsID = Integer.parseInt(request.getParameter("bbsID"));
@@ -39,7 +43,7 @@
 			script.println("</script>");
 		}
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
-		if(!userID.equals(bbs.getUserID())) {
+		if(!userID.equals(bbs.getUserID()) && !adminCheck.equals(true)) {
 			PrintWriter script = response.getWriter();
 			script.println("<script>");
 			script.println("alert('권한이 없습니다.')");
@@ -89,7 +93,7 @@
 				</thread>
 				<tbody>
 					<tr>
-						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" values="<%= bbs.getBbsTitle() %>"></td>
+						<td><input type="text" class="form-control" placeholder="글 제목" name="bbsTitle" maxlength="50" value="<%= bbs.getBbsTitle() %>"></td>
 						</tr>
 						<tr>
 						<td><textarea class="form-control" placeholder="글 내용" name="bbsContent" maxlength="2048" style="height: 350px;"><%= bbs.getBbsContent() %></textarea></td>

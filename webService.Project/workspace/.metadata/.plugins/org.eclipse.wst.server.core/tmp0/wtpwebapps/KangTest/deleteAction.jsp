@@ -1,4 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="user.User" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>
 <%@ page import="java.io.PrintWriter" %>
@@ -23,6 +25,7 @@
 			script.println("</script>");
 		}
 		
+		Boolean adminCheck = new UserDAO().getAdmin(userID);
 		
 		int bbsID = 0;
 		if (request.getParameter("bbsID") != null){
@@ -37,15 +40,7 @@
 		}
 		
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
-		if(!userID.equals(bbs.getUserID())) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('권한이 없습니다.')");
-			script.println("location.href = 'bbs.jsp'");
-			script.println("</script>");
-			
-		}
-		else{
+		if(userID.equals(bbs.getUserID()) || adminCheck.equals(true)) {
 			BbsDAO BbsDAO = new BbsDAO();
 			int result = BbsDAO.delete(bbsID);	
 			if(result == -1){
@@ -61,6 +56,15 @@
 				script.println("location.href = 'bbs.jsp'");
 				script.println("</script>");
 			}
+			
+		}
+		else{
+
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 없습니다.')");
+			script.println("location.href = 'bbs.jsp'");
+			script.println("</script>");
 			}
 				
 		

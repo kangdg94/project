@@ -70,7 +70,6 @@
 					String fileName = multipartRequest.getOriginalFileName("file");
 					String fileRealName = multipartRequest.getFilesystemName("file");
 					new FileDAO().upload(fileName, fileRealName);
-					
 					script.println("<script>");
 					script.println("location.href = 'bbs.jsp'");
 					script.println("</script>");

@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.PrintWriter" %>
 <% request.setCharacterEncoding("UTF-8"); %>
 <!DOCTYPE html>
@@ -23,7 +25,7 @@
 			script.println("</script>");
 		}
 		
-		
+		Boolean adminCheck = new UserDAO().getAdmin(userID);
 		int bbsID = 0;
 		if (request.getParameter("bbsID") != null){
 			bbsID = Integer.parseInt(request.getParameter("bbsID"));
@@ -37,15 +39,7 @@
 		}
 		
 		Bbs bbs = new BbsDAO().getBbs(bbsID);
-		if(!userID.equals(bbs.getUserID())) {
-			PrintWriter script = response.getWriter();
-			script.println("<script>");
-			script.println("alert('권한이 없습니다.')");
-			script.println("location.href = 'bbs.jsp'");
-			script.println("</script>");
-			
-		}
-		else{
+		if(userID.equals(bbs.getUserID()) || adminCheck.equals(true)) {
 			if (request.getParameter("bbsTitle") == null || request.getParameter("bbsContent") == null ||
 					request.getParameter("bbsTitle").equals("") || request.getParameter("bbsContent").equals("")){
 					PrintWriter script = response.getWriter();
@@ -63,14 +57,21 @@
 					script.println("alert('글 수정에 실패 하였습니다.')");
 					script.println("history.back()");
 					script.println("</script>");
-				}
+						}
 				else{
 					PrintWriter script = response.getWriter();
 					script.println("<script>");
 					script.println("location.href = 'bbs.jsp'");
 					script.println("</script>");
+					}
 				}
-				}
+		}
+		else{
+			PrintWriter script = response.getWriter();
+			script.println("<script>");
+			script.println("alert('권한이 없습니다.')");
+			script.println("location.href = 'bbs.jsp'");
+			script.println("</script>");
 				
 		}
 		

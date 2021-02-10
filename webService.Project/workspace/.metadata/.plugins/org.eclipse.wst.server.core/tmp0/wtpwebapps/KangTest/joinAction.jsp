@@ -15,6 +15,7 @@
 	<%
 		String userID = null;
 		String userPassword = null;
+		String userPasswordCheck = null;
 		String userEmail = null;
 		String userGender = null;
 		String userName = null;
@@ -36,6 +37,9 @@
 		}
 		if(request.getParameter("userPassword") != null) {
 			userPassword = (String) request.getParameter("userPassword");
+		}
+		if(request.getParameter("userPasswordCheck") != null) {
+			userPasswordCheck = (String) request.getParameter("userPasswordCheck");
 		}
 		if(request.getParameter("userEmail") != null) {
 			userEmail = (String) request.getParameter("userEmail");
@@ -59,7 +63,7 @@
 		else
 		{
 			UserDAO userDAO = new UserDAO();
-			int result = userDAO.join(new User(userID, userPassword, userName, userGender,userEmail, SHA256.getSHA256(userEmail), false, false));	
+			int result = userDAO.join(new User(userID, userPassword, userName, userGender,userEmail, SHA256.getSHA256(userEmail), false, false, userPasswordCheck));	
 			if(result == -1){
 				PrintWriter script = response.getWriter();
 				script.println("<script>");

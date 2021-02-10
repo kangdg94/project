@@ -3,6 +3,8 @@
 <%@ page import="java.io.PrintWriter" %>
 <%@ page import="bbs.Bbs" %>
 <%@ page import="bbs.BbsDAO" %>
+<%@ page import="user.User" %>
+<%@ page import="user.UserDAO" %>
 <%@ page import="java.io.File" %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +18,7 @@
 <body>
 	<%
 		String directory = application.getRealPath("/upload/");
-		//String files[] = new File(directory).list();
+		
 		
 		String userID = null;
 		if (session.getAttribute("userID") != null) {
@@ -35,6 +37,8 @@
 		}
 		
 	Bbs bbs = new BbsDAO().getBbs(bbsID);
+	Boolean adminCheck = new UserDAO().getAdmin(userID);
+	
 	
 	%>
 	<nav class ="navbar navbar-default">
@@ -131,7 +135,7 @@
 			</table>
 			<a href ="bbs.jsp" class="btn btn-primary">목록</a>
 			<%
-				if(userID != null && userID.equals(bbs.getUserID())){
+				if(userID != null && (userID.equals(bbs.getUserID()) || adminCheck.equals(true))){
 					
 			%>
 					<a href="update.jsp?bbsID=<%= bbsID %>" class="btn btn-primary">수정</a>

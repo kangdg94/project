@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+
 public class BbsDAO {
 	
 
@@ -80,20 +81,86 @@ public class BbsDAO {
 			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				bbs.setFileName(rs.getString(7));
-				bbs.setFileRealName(rs.getString(8));
+				Bbs bbs = new Bbs(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getInt(6),
+						rs.getString(7),
+						rs.getString(8));
+				
 				list.add(bbs);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
+		return list;
+	}
+	
+	public ArrayList<Bbs> getList(int pageNumber, String searchType, String search)
+	{	
+		String SQL = "";
+		
+		ArrayList<Bbs> list = null;
+		
+		try 
+		{
+			 list = new ArrayList<Bbs>();
+			
+			if(searchType.equals("내용만"))
+			{
+				SQL = "SELECT "
+						+ "bbsID, bbsTitle, userID, bbsDate, bbsContent, bbsAvailable, fileName, fileRealName "
+						+ "FROM "
+						+ "BBS "
+						+ "WHERE "
+						+ "bbsID < ? AND "
+						+ "bbsAvailable = 1 AND "
+						+ "bbsContent LIKE ? "
+						+ "ORDER BY bbsID DESC LIMIT 10";
+			}
+			else if(searchType.equals("전체")) 
+			{
+				SQL = "SELECT "
+						+ "bbsID, bbsTitle, userID, bbsDate, bbsContent, bbsAvailable, fileName, fileRealName "
+						+ "FROM "
+						+ "BBS "
+						+ "WHERE "
+						+ "bbsID < ? AND "
+						+ "bbsAvailable = 1 AND "
+						+ "CONCAT(IFNULL(bbsTitle, ''), IFNULL(userID, ''), IFNULL(bbsContent, ''), IFNULL(fileName, ''), IFNULL(fileRealName, '')) LIKE ? "
+						+ "ORDER BY bbsID DESC LIMIT 10";
+			}
+			
+			PreparedStatement pstmt = conn.prepareStatement(SQL);
+			
+			pstmt.setInt(1,  getNext() - (pageNumber - 1) * 10);
+			pstmt.setString(2, "%" + search + "%");
+			rs = pstmt.executeQuery(); 
+			
+			while (rs.next()) 
+			{
+				Bbs bbs = new Bbs(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getInt(6),
+						rs.getString(7),
+						rs.getString(8));
+				
+				list.add(bbs);
+			}
+			
+		}
+		catch (Exception e) 
+		{
+			e.printStackTrace();
+		}
+		
 		return list;
 	}
 	
@@ -119,15 +186,15 @@ public class BbsDAO {
 			pstmt.setInt(1, bbsID);  
 			rs = pstmt.executeQuery();
 			if (rs.next()) {
-				Bbs bbs = new Bbs();
-				bbs.setBbsID(rs.getInt(1));
-				bbs.setBbsTitle(rs.getString(2));
-				bbs.setUserID(rs.getString(3));
-				bbs.setBbsDate(rs.getString(4));
-				bbs.setBbsContent(rs.getString(5));
-				bbs.setBbsAvailable(rs.getInt(6));
-				bbs.setFileName(rs.getString(7));
-				bbs.setFileRealName(rs.getString(8));
+				Bbs bbs = new Bbs(
+						rs.getInt(1),
+						rs.getString(2),
+						rs.getString(3),
+						rs.getString(4),
+						rs.getString(5),
+						rs.getInt(6),
+						rs.getString(7),
+						rs.getString(8));
 				return bbs;
 			}
 		}catch (Exception e) {
@@ -165,5 +232,4 @@ public class BbsDAO {
 		}
 		return -1;
 	}
-	
 }

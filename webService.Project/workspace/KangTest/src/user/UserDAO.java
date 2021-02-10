@@ -45,7 +45,7 @@ public class UserDAO {
 	
 	
 	public int join(User user) {
-		String SQL = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?, false, false)"; //마지막2개 checked , admin
+		String SQL = "INSERT INTO USER VALUES (?, ?, ?, ?, ?, ?, false, false, ?)"; //마지막2개 checked , admin
 		try {
 			pstmt = conn.prepareStatement(SQL);
 			pstmt.setString(1,  user.getUserID());
@@ -54,11 +54,28 @@ public class UserDAO {
 			pstmt.setString(4,  user.getUserGender());
 			pstmt.setString(5,  user.getUserEmail());
 			pstmt.setString(6,  user.getUserEmailHash());
+			pstmt.setString(7,  user.getUserPasswordCheck());
 			return pstmt.executeUpdate(); //db 업데이트 데이터 개수 반환 (성공이면 한개의 데이터가 생겼으니 1이 반환)
 		}catch(Exception e) {
 			e.printStackTrace();
 		}
 		return -1; //db error
+		
+	}
+	
+	public boolean getAdmin(String userID) {
+		String SQL = "SELECT admin FROM USER WHERE UserID = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			if(rs.next()){
+				return rs.getBoolean(1);
+			}
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return false; //db error
 		
 	}
 

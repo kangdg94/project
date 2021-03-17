@@ -1,0 +1,21 @@
+package test;
+
+public class testAjax {
+	
+	private String testA;
+	private String testB;
+	public String getTestA() {
+		return testA;
+	}
+	public void setTestA(String testA) {
+		this.testA = testA;
+	}
+	public String getTestB() {
+		return testB;
+	}
+	public void setTestB(String testB) {
+		this.testB = testB;
+	}
+	
+	
+}

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;KangTest/WebContent/myHisotry.jsp&apos; to &apos;myHistory.jsp&apos;" description="Rename resource &apos;myHisotry.jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/myHisotry.jsp" name="myHistory.jsp" stamp="1613460338963" updateReferences="true"/>
+</session>

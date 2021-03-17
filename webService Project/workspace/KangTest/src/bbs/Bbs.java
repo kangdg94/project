@@ -10,7 +10,14 @@ public class Bbs {
 	private int bbsAvailable;
 	private String fileName;
 	private String fileRealName;
+	private int bbsHit;
 	
+	public int getBbsHit() {
+		return bbsHit;
+	}
+	public void setBbsHit(int bbsHit) {
+		this.bbsHit = bbsHit;
+	}
 	public String getFileName() {
 		return fileName;
 	}
@@ -63,7 +70,7 @@ public class Bbs {
 	public Bbs() {
 	}
 	public Bbs(int bbsID, String bbsTitle, String userID, String bbsDate, String bbsContent, int bbsAvailable,
-			String fileName, String fileRealName) {
+			String fileName, String fileRealName, int bbsHit) {
 		super();
 		this.bbsID = bbsID;
 		this.bbsTitle = bbsTitle;
@@ -73,6 +80,7 @@ public class Bbs {
 		this.bbsAvailable = bbsAvailable;
 		this.fileName = fileName;
 		this.fileRealName = fileRealName;
+		this.bbsHit = bbsHit;
 	}
 	
 

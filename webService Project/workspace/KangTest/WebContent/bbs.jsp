@@ -85,6 +85,7 @@
 						aria-expanded="false">회원관리<span class="cartet"></span></a>
 				<ul class="dropdown-menu">
 					<li><a href="logoutAction.jsp">로그아웃</a></li>
+					<li><a href="mypage.jsp">마이페이지</a></li>
 			</ul>
 			</li>
 			</ul>
@@ -116,6 +117,7 @@
 						<th style="background-color: #bbbbbb; text-align: center;">제목</th>
 						<th style="background-color: #bbbbbb; text-align: center;">작성자</th>
 						<th style="background-color: #bbbbbb; text-align: center;">작성일</th>
+						<th style="background-color: #bbbbbb; text-align: center; width: 70px;">조회수</th>
 					</tr>
 				
 		<tbody>
@@ -140,6 +142,7 @@
 				<td><a href = "view.jsp?bbsID=<%=list.get(i).getBbsID() %>"><%= list.get(i).getBbsTitle().replaceAll(" ","&nbsp;").replaceAll("<","&lt;").replaceAll(">", "&gt;").replaceAll("\n","<br>") %></td></a></td>
 				<td><%= list.get(i).getUserID() %></td>
 				<td><%= list.get(i).getBbsDate().substring(0, 11) + list.get(i).getBbsDate().substring(11,13) + "시" + list.get(i).getBbsDate().substring(14,16) + "분" %></td>
+				<td><%= list.get(i).getBbsHit() %></td>
 			</tr>
 		<% 
 				}

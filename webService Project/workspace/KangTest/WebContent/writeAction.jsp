@@ -64,7 +64,6 @@
 				}
 				else{
 					PrintWriter script = response.getWriter();
-
 					bbs.setBbsTitle(multipartRequest.getParameter("bbstitle"));
 					bbs.setBbsContent(multipartRequest.getParameter("bbsContent"));
 					String fileName = multipartRequest.getOriginalFileName("file");

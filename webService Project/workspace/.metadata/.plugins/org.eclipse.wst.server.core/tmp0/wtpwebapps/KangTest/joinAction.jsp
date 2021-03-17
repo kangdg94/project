@@ -50,6 +50,7 @@
 		if(request.getParameter("userName") != null) {
 			userName = (String) request.getParameter("userName");
 		}
+		
 
 		
 		if (userID == null || userPassword == null|| userGender == null||
@@ -71,6 +72,14 @@
 				script.println("history.back()");
 				script.println("</script>");
 			}
+			else if(!userPassword.equals(userPasswordCheck)){
+				PrintWriter script = response.getWriter();
+				script.println("<script>");
+				script.println("alert('비밀번호가 다릅니다.')");
+				script.println("history.back()");
+				script.println("</script>");
+			}
+			
 			else{
 				session.setAttribute("userID",userID);
 				PrintWriter script = response.getWriter();

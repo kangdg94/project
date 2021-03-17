@@ -124,4 +124,48 @@ public class UserDAO {
 		return false; //db error
 		
 	}
+	
+	public User getUser(String userID) {
+		String SQL = "SELECT * FROM USER WHERE userID = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userID);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				User user = new User(
+				rs.getString(1),
+				rs.getString(2),
+				rs.getString(3),
+				rs.getString(4),
+				rs.getString(5),
+				rs.getString(6),
+				rs.getBoolean(7),
+				rs.getBoolean(8),
+				rs.getString(9));
+				return user;
+			}}
+		catch(Exception e) {
+			e.printStackTrace();
+		}return null;
+		
+	}
+	
+	
+	public int update(String userID, String userPassword, String userPasswordCheck, String userName, String userGender) {
+		String SQL = "UPDATE USER SET userPassword = ?, userPasswordCheck = ?, userName = ?, userGender = ? WHERE userID = ?";
+		try {
+			pstmt = conn.prepareStatement(SQL);
+			pstmt.setString(1, userPassword);
+			pstmt.setString(2, userPasswordCheck);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, userGender);
+			pstmt.setString(5, userID);
+			return pstmt.executeUpdate(); //db 업데이트 데이터 개수 반환 (성공이면 한개의 데이터가 생겼으니 1이 반환)
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return -1; //db error
+		
+	}
+	
 }

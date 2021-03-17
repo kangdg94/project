@@ -1,0 +1,178 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ page import="java.io.PrintWriter" %>
+<%@ page import="bbs.BbsDAO" %>
+<%@ page import="bbs.Bbs" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="java.net.URLEncoder" %>
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv= "Content- Type" content="text/html; charset=UTF-8">
+	<meta name ="viewport" content="width = device-width" initial-scale="1">
+	<link rel="stylesheet" href="css/bootstrap.css">
+	<link rel="stylesheet" href="css/custom.css">
+	
+	<style>
+		
+.container 
+{
+    width: 95%;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.jumbotron
+{
+	display: inline-block;
+	padding: 0px !important;
+	width: 100%;
+}
+
+.left_area
+{
+	width: 50%;
+	float: left;
+	text-align: center;
+	padding-top: 60px;
+}
+.right_area
+{
+	width: 50%;
+	float: right;
+    padding-right: 50px;
+}
+
+.board_recent
+{
+	background: white;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-right: 60px;
+    padding-left: 60px;
+    border-radius: 6px;
+    margin-bottom: 30px;
+}
+
+</style>
+
+	<title>Donggeun's webService</title>
+	
+</head>
+<body>
+	<%
+		String userID = null;
+		if (session.getAttribute("userID") != null) {
+			userID = (String) session.getAttribute("userID");
+		}
+	%>
+	<nav class ="navbar navbar-default">
+		<div class ="navbar-header">
+			
+			<a class="navbar-brand" href="main.jsp">Donggeun's webService</a>
+		</div>	
+		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="main.jsp">메인</a></li>
+				<li><a href="bbs.jsp">게시판</a></li>
+			</ul>
+			
+			<%
+				if(userID == null){
+			%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">접속하기<span class="cartet"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="login.jsp"> 로그인 </a> </li>
+					<li><a href="join.jsp"> 회원가입 </a> </li> 
+			</ul>
+			</li>
+			</ul>
+			
+			<% 	
+				}else{
+			%>
+			<ul class="nav navbar-nav navbar-right">
+				<li class="dropdown">
+					<a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">회원관리<span class="cartet"></span></a>
+				<ul class="dropdown-menu">
+					<li><a href="logoutAction.jsp">로그아웃</a></li>
+					<li><a href="mypage.jsp">마이페이지</a></li>
+			</ul>
+			</li>
+			</ul>
+			<%
+				}
+			%>
+		</div>
+	</nav>
+	<div class="container">
+		<div class="jumbotron">
+			    <div class="left_area">
+	    			<img src="images/1.jpg" >
+	    				<div><a class="btn btn.primary btn-pull" href="donggeun.jsp" role="button" style ="text-align: center; width: 100%;" >자유 게시판 글쓰기</a>
+	    				</div>
+			    </div>
+			    
+			    <div class="right_area"> 
+					<div style="text-align: center;padding-top: 25px; width: 100%; padding-left: 50px;">최근 3일간 게시판 현황
+						<button type="button" onClick="Bbslast()" style="text-align: center;float: right; height: 24px; padding-inline: initial;">현황 보기
+						</button>
+					</div>
+					<div class="board_recent">
+						<table class="alert alert-info" id = "ajaxTable" role="alert" style="width: 100%;">
+						</table>
+					</div>
+				</div>
+		</div>
+	</div>
+	 
+    
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="js/bootstrap.js"></script>
+	<script type="text/javascript">
+		function Bbslast(){
+			var request = new XMLHttpRequest();
+			request.open("post", "/KangTest/BbsSearchServlet");
+			request.onreadystatechange = function()
+		    {
+		    	if(request.readyState == 4 && request.status == 200)
+		    	{
+		    		var table = document.getElementById("ajaxTable");
+					table.innerHTML = "";
+					var object = eval('(' + request.responseText + ')');
+					
+					var result = object.result;
+					
+					for(var i =0; i< result.length; i++){
+						var row = table.insertRow(0);
+						for(var j =0 ; j< result[i].length; j++){
+							var cell = row.insertCell(j);
+							console.log(result[i][j].BbsTitle);
+							if (j == 0){
+								cell.innerHTML = result[i][j].UserID + "님이";
+							}
+							else if (j == 1){
+								cell.innerHTML = result[i][j].value + "글을";
+							}
+							else{
+								cell.innerHTML = result[i][j].value + "에 게시하였습니다.";
+							}
+						}
+					}
+				}
+		    }
+			request.send(null);
+		}
+	</script>
+	
+	
+</body>
+</html>

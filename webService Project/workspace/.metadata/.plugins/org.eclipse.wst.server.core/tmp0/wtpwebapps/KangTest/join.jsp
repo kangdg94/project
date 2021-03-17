@@ -44,20 +44,20 @@
 			<form method="post" action="joinAction.jsp">
 				<h3 style="text-align: center;">회원가입 화면</h3>
 				<div class ="form-group">
-					<label for="exampleInputEmail1">아이디 </label>
-					<input type="text" class="form-control" placeholder="아이디를 입력하세요 " name="userID" maxlength="20" > 
+					<label for="userID">아이디 </label>
+					<input type="text" class="form-control" placeholder="아이디를 입력해주세요 " name="userID" maxlength="20" > 
 				</div>
 				<div class ="form-group">
-					<label for="exampleInputEmail1">비밀번호 </label>
-					<input type="password" class="form-control" placeholder="비밀번호를 입력하세요 " name="userPassword" maxlength="20"> 
+					<label for="userPassword">비밀번호 </label>
+					<input type="password" class="form-control" placeholder="비밀번호를 입력해주세요 " name="userPassword" maxlength="20"> 
 				</div>
 				<div class ="form-group">
-					<label for="exampleInputEmail1">비밀번호 확인 </label>
-					<input type="password" class="form-control" placeholder="비밀번호를 입력하세요 " name="userPasswordConfirm" maxlength="20"> 
+					<label for="userPasswordCheck">비밀번호 확인 </label>
+					<input type="password" class="form-control" placeholder="비밀번호를 확인해주세요 " name="userPasswordCheck" maxlength="20"> 
 				</div>
 				<div class ="form-group">
-					<label for="exampleInputEmail1">이름 </label>
-					<input type="text" class="form-control" placeholder="이름을 입력하세요 " name="userName" maxlength="20"> 
+					<label for="userName">이름 </label>
+					<input type="text" class="form-control" placeholder="이름을 입력해주세요 " name="userName" maxlength="20"> 
 				</div>
 				<div class ="form-group" style="text-align: center;">
 					<div class ="btn-group" data-toggle="buttons">
@@ -70,8 +70,8 @@
 					</div> 
 				</div>		
 				<div class ="form-group" >
-					<label for="exampleInputEmail1">이메일 </label>
-						<input type="email" class="form-control" placeholder="이메일을 입력하세요 " name="userEmail" maxlength="20">
+					<label for="userEmail">이메일 </label>
+						<input type="email" class="form-control" placeholder="이메일을 입력해주세요 " name="userEmail" maxlength="20">
 					</div>	
 					</div>
 				<input type ="submit" class="btn btn-primary form-control" value="회원가입">

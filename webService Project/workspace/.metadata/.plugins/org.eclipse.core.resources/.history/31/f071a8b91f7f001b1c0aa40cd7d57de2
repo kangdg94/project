@@ -1,0 +1,21 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="user.UserDAO" %>
+<%@ page import="java.io.PrintWriter" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<jsp:useBean id="test" class="test.testAjax" scope="page" />
+<jsp:setProperty name="a_value" property="a_value" />
+<jsp:setProperty name="b_value" property="b_value" />
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Donggeun's webService</title>
+</head>
+<body>
+	<%	
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@");
+		System.out.println("a: " + test.getA_value());
+	
+	%>
+</body>
+</html>

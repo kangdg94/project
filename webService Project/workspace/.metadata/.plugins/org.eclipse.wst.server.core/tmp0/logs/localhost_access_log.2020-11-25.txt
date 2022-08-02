@@ -1,6 +1,0 @@
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:01:53 +0900] "GET /KangTest/ HTTP/1.1" 200 172
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:01:53 +0900] "GET /KangTest/login.jsp HTTP/1.1" 200 2111
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:01:53 +0900] "GET /KangTest/css/bootstrap.css HTTP/1.1" 304 -
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:01:53 +0900] "GET /KangTest/js/bootstrap.js HTTP/1.1" 304 -
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:02:03 +0900] "POST /KangTest/LoginActionjsp HTTP/1.1" 404 834
-0:0:0:0:0:0:0:1 - - [25/Nov/2020:09:03:36 +0900] "POST /KangTest/LoginActionjsp HTTP/1.1" 404 834
